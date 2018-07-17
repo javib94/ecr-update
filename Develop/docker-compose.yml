@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  
+  redis:
+    container_name: redis
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redisdb/data:/data
+
+  website1:
+    build: ./django
+    volumes:
+      - ./django:/code
+    ports:
+      - "8001:8000"
+    environment:
+      - REDIS_URL=redis
+      - ALB_URL=localhost
+    links:
+      - redis
+
+  website2:
+    build: ./django
+    volumes:
+      - ./django:/code
+    ports:  
+      - "8002:8000"
+    environment:
+      - REDIS_URL=redis
+      - ALB_URL=localhost
+    links:
+      - redis
+
+  load_balancer:
+    build: ./nginxlb
+    container_name: nginxlb
+    ports:
+     - "8080:80"
+    links:
+      - website1
+      - website2
+    environment:
+     - NGINX_PORT=80
+  
+
+
