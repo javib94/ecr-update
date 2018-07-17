@@ -27,6 +27,7 @@ pipeline{
             sh '$(aws ecr get-login --no-include-email --region us-east-2)'
             sh "docker tag ecs-javi-repository:latest${version} 797409686075.dkr.ecr.us-east-2.amazonaws.com/ecs-javi-repository:latest${flag}"
             sh "docker push 797409686075.dkr.ecr.us-east-2.amazonaws.com/ecs-javi-repository:latest${version}"
+            sh "chmod a+x ./Deploy/delete.sh"
             sh "./Deploy/delete.sh"
         } else {
             echo "Test not passed"
