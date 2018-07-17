@@ -20,6 +20,7 @@ pipeline{
     }
     stage('Deploy'){
       steps{
+        script{
         echo "Resultado : ${flag}"
         if(flag.contains("PASSED")){
             version = sh (script: 'cat version', returnStdout: true)
@@ -30,6 +31,7 @@ pipeline{
         } else {
             echo "Test not passed"
           }
+        }
         }
     }
   }
