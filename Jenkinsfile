@@ -23,7 +23,7 @@ pipeline{
         echo "Resultado : ${flag}"
         if(variable1.contains("PASSED")){
             version = sh (script: 'cat version', returnStdout: true)
-            sh "eval $(aws ecr get-login --no-include-email --region us-east-2 | sed 's|https://||')"
+            sh '$(aws ecr get-login --no-include-email --region us-east-2)'
             sh "docker tag ecs-javi-repository:latest${version} 797409686075.dkr.ecr.us-east-2.amazonaws.com/ecs-javi-repository:latest${flag}"
             sh "docker push 797409686075.dkr.ecr.us-east-2.amazonaws.com/ecs-javi-repository:latest${version}"
             sh "./Deploy/delete.sh"
