@@ -18,7 +18,7 @@ pipeline{
         sh "/usr/local/bin/docker-compose -f ./Develop/docker-compose.yml down"
       }
     }
-    stage('Build'){
+    stage('Deploy'){
       steps{
         echo "Resultado : ${flag}"
         if(flag.contains("PASSED")){
