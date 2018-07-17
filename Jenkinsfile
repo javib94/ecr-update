@@ -11,7 +11,7 @@ pipeline{
     stage('Test'){
       steps{
         sh "/usr/local/bin/docker-compose -f ./Develop/docker-compose.yml up -d"
-        sh "chmod a+x ./Develop/test.sh"
+        sh "chmod a+x ./test.sh"
         script{
           flag = sh (script: './test.sh', returnStdout: true)
           echo "Resultado : ${flag}"
