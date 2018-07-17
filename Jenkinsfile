@@ -25,6 +25,7 @@ pipeline{
         echo "Resultado : ${flag}"
         if(flag.contains("PASSED")){
             version = sh (script: 'cat version', returnStdout: true)
+            sh 'docker build -t ecs-javi-repository ./Develop/django'
             sh '$(aws ecr get-login --no-include-email --region us-east-2)'
             sh "docker tag ecs-javi-repository:latest 797409686075.dkr.ecr.us-east-2.amazonaws.com/ecs-javi-repository:latest"
             sh "docker push 797409686075.dkr.ecr.us-east-2.amazonaws.com/ecs-javi-repository:latest"
