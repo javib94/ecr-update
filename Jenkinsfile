@@ -1,5 +1,4 @@
 pipeline{
-  agent none
   agent{
     label 'ecr'
   }
@@ -10,7 +9,7 @@ pipeline{
 
       }
     }
-    
+
 
 
   }
