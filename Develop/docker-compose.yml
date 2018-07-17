@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  
+
   redis:
     container_name: redis
     image: redis:4.0.5-alpine
@@ -28,7 +28,7 @@ services:
     build: ./django
     volumes:
       - ./django:/code
-    ports:  
+    ports:
       - "8002:8000"
     environment:
       - REDIS_URL=redis
@@ -40,12 +40,9 @@ services:
     build: ./nginxlb
     container_name: nginxlb
     ports:
-     - "8080:80"
+     - "80:80"
     links:
       - website1
       - website2
     environment:
      - NGINX_PORT=80
-  
-
-
